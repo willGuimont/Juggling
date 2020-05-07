@@ -13,7 +13,7 @@ import io.github.willguimont.juggling.R;
 
 public class HomeFragment extends Fragment {
 
-    public static HomeFragment newInstance() {
+    static HomeFragment newInstance() {
         return new HomeFragment();
     }
 

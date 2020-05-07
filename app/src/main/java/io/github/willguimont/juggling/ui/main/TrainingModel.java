@@ -8,15 +8,16 @@ public class TrainingModel extends ViewModel {
 
     private MutableLiveData<Integer> numberOfDrops = new MutableLiveData<>();
 
-    public void reset() {
+    void reset() {
         numberOfDrops.setValue(0);
     }
 
-    public void drop() {
-        numberOfDrops.setValue(numberOfDrops.getValue() + 1);
+    void drop() {
+        Integer lastValue = numberOfDrops.getValue();
+        numberOfDrops.setValue(lastValue + 1);
     }
 
-    public LiveData<Integer> getNumberOfDrops() {
+    LiveData<Integer> getNumberOfDrops() {
         return numberOfDrops;
     }
 }

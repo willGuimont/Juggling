@@ -17,7 +17,7 @@ public class TimeNoDropFragment extends Fragment {
 
     private TimeNoDropModel timeNoDropModel;
 
-    public static TimeNoDropFragment newInstance() {
+    static TimeNoDropFragment newInstance() {
         return new TimeNoDropFragment();
     }
 
