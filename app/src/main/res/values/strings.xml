@@ -5,4 +5,7 @@
     <string name="training_drop">DROPS</string>
     <string name="training_reset">Reset</string>
     <string name="drop_number_placeholder">XXX</string>
+    <string name="time_no_drop_placeholder">mm:ss.uu</string>
+    <string name="time_no_drop_button_reset">Reset</string>
+    <string name="time_no_drop_button_start">Start</string>
 </resources>

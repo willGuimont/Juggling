@@ -1,26 +1,27 @@
 package io.github.willguimont.juggling.ui.main;
 
-import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 public class TimeNoDropModel extends ViewModel {
 
-    private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
-    private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
-        @Override
-        public String apply(Integer input) {
-            return "Hello world from section: " + input;
-        }
-    });
+    public static final int TICK_DURATION_MS = 10;
 
-    public void setIndex(int index) {
-        mIndex.setValue(index);
+    private MutableLiveData<Long> numDecisecondsNoDrop = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isRunning = new MutableLiveData<>();
+
+    void reset() {
+        numDecisecondsNoDrop.setValue((long) 0);
+        isRunning.setValue(false);
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    void tick() {
+        Long lastValue = numDecisecondsNoDrop.getValue();
+        numDecisecondsNoDrop.setValue(lastValue + 1);
+    }
+
+    LiveData<Long> getDeciseconds() {
+        return numDecisecondsNoDrop;
     }
 }
