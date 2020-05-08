@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Juggling</string>
-    <string name="tab_text_home">Home</string>
     <string name="tab_text_training">Training</string>
     <string name="tab_text_time_no_drop">Time no drop</string>
+    <string name="training_drop">DROPS</string>
+    <string name="training_reset">Reset</string>
+    <string name="drop_number_placeholder">XXX</string>
 </resources>

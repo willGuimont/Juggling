@@ -3,37 +3,50 @@ package io.github.willguimont.juggling.sound;
 import android.os.Handler;
 
 public class LoudSoundDetector {
-    private static final int POLL_INTERVAL = 100;
     private static final double THRESHOLD = 6;
 
     private Handler handler = new Handler();
     private SoundMeter soundMeter;
     private Runnable onLoudSoundAction;
+    private int pollIntervalMs;
+    private int onLoudSoundDelayMs;
+    private long timeAtLastLoudMs;
+
     private Runnable pollTask = new Runnable() {
         @Override
         public void run() {
             double amp = soundMeter.getAmplitude();
 
-            if (amp > THRESHOLD) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime > timeAtLastLoudMs + onLoudSoundDelayMs && amp > THRESHOLD) {
                 onLoudSoundAction.run();
+                timeAtLastLoudMs = currentTime;
             }
 
-            handler.postDelayed(pollTask, POLL_INTERVAL);
+            handler.postDelayed(pollTask, pollIntervalMs);
         }
     };
 
-    public LoudSoundDetector(Runnable onLoudSoundAction) {
+    public LoudSoundDetector(int pollIntervalMs, Runnable onLoudSoundAction, int onLoudSoundDelayMs) {
         soundMeter = new SoundMeter();
+        this.pollIntervalMs = pollIntervalMs;
         this.onLoudSoundAction = onLoudSoundAction;
+        this.onLoudSoundDelayMs = onLoudSoundDelayMs;
+        timeAtLastLoudMs = 0;
     }
 
     public void start() {
         soundMeter.start();
-        handler.postDelayed(pollTask, POLL_INTERVAL);
+        reset();
+        handler.postDelayed(pollTask, 0);
     }
 
     public void stop() {
         handler.removeCallbacks(pollTask);
         soundMeter.stop();
+    }
+
+    public void reset() {
+        timeAtLastLoudMs = 0;
     }
 }

@@ -16,7 +16,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
     private static final int[] TAB_TITLES = new int[]{
-            R.string.tab_text_home,
             R.string.tab_text_training,
             R.string.tab_text_time_no_drop};
     private final Context context;
@@ -31,10 +30,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return HomeFragment.newInstance();
-            case 1:
                 return TrainingFragment.newInstance();
-            case 2:
+            case 1:
                 return TimeNoDropFragment.newInstance();
         }
         return TimeNoDropFragment.newInstance();
@@ -48,6 +45,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 }

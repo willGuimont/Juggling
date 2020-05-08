@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,7 +49,10 @@ public class TrainingFragment extends Fragment {
             return;
         }
         if (loudSoundDetector == null) {
-            loudSoundDetector = new LoudSoundDetector(() -> trainingModel.drop());
+            loudSoundDetector = new LoudSoundDetector(
+                    100,
+                    () -> trainingModel.drop(),
+                    1000);
         }
     }
 
@@ -81,8 +85,19 @@ public class TrainingFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.training_page, container, false);
-        final TextView textView = root.findViewById(R.id.number_of_drops_label);
-        trainingModel.getNumberOfDrops().observe(getViewLifecycleOwner(), (numDrops) -> textView.setText(String.format(Locale.getDefault(), "%d", numDrops)));
+
+        final TextView numDropsTextView = root.findViewById(R.id.train_number_of_drops_label);
+        trainingModel.getNumberOfDrops().observe(
+                getViewLifecycleOwner(),
+                (numDrops) -> numDropsTextView.setText(String.format(Locale.getDefault(),
+                        "%d", numDrops)));
+
+        final Button resetButton = root.findViewById(R.id.train_reset_button);
+        resetButton.setOnClickListener((view) -> {
+            trainingModel.reset();
+            loudSoundDetector.reset();
+        });
+
         return root;
     }
 }
