@@ -1,4 +1,4 @@
-package io.github.willguimont.juggling.ui.main;
+package io.github.willguimont.juggling.ui.training;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -26,10 +26,9 @@ public class TrainingFragment extends Fragment {
     private static final int RECORD_AUDIO_PERMISSION = 0;
 
     private TrainingModel trainingModel;
-
     private LoudSoundDetector loudSoundDetector;
 
-    static TrainingFragment newInstance() {
+    public static TrainingFragment newInstance() {
         return new TrainingFragment();
     }
 

@@ -8,8 +8,8 @@ public class LoudSoundDetector {
     private Handler handler = new Handler();
     private SoundMeter soundMeter;
     private Runnable onLoudSoundAction;
-    private int pollIntervalMs;
-    private int onLoudSoundDelayMs;
+    private long pollIntervalMs;
+    private long onLoudSoundDelayMs;
     private long timeAtLastLoudMs;
 
     private Runnable pollTask = new Runnable() {
@@ -27,7 +27,7 @@ public class LoudSoundDetector {
         }
     };
 
-    public LoudSoundDetector(int pollIntervalMs, Runnable onLoudSoundAction, int onLoudSoundDelayMs) {
+    public LoudSoundDetector(long pollIntervalMs, Runnable onLoudSoundAction, long onLoudSoundDelayMs) {
         soundMeter = new SoundMeter();
         this.pollIntervalMs = pollIntervalMs;
         this.onLoudSoundAction = onLoudSoundAction;

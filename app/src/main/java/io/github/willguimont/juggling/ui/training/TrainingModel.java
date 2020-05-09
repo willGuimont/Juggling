@@ -1,4 +1,4 @@
-package io.github.willguimont.juggling.ui.main;
+package io.github.willguimont.juggling.ui.training;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

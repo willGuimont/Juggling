@@ -10,6 +10,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import io.github.willguimont.juggling.R;
+import io.github.willguimont.juggling.ui.about.AboutFragment;
+import io.github.willguimont.juggling.ui.time.TimeNoDropFragment;
+import io.github.willguimont.juggling.ui.training.TrainingFragment;
 
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -17,7 +20,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @StringRes
     private static final int[] TAB_TITLES = new int[]{
             R.string.tab_text_training,
-            R.string.tab_text_time_no_drop};
+            R.string.tab_text_time_no_drop,
+            R.string.tab_text_about
+    };
     private final Context context;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -33,8 +38,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return TrainingFragment.newInstance();
             case 1:
                 return TimeNoDropFragment.newInstance();
+            case 2:
+                return AboutFragment.newInstance();
         }
-        return TimeNoDropFragment.newInstance();
+        throw new RuntimeException("Invalid item number");
     }
 
     @Nullable
@@ -45,6 +52,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 }

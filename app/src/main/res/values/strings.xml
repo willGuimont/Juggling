@@ -2,10 +2,13 @@
     <string name="app_name">Juggling</string>
     <string name="tab_text_training">Training</string>
     <string name="tab_text_time_no_drop">Time no drop</string>
+    <string name="tab_text_about">About</string>
     <string name="training_drop">DROPS</string>
     <string name="training_reset">Reset</string>
     <string name="drop_number_placeholder">XXX</string>
-    <string name="time_no_drop_placeholder">mm:ss.uu</string>
+    <string name="time_no_drop_placeholder">00:00.00</string>
     <string name="time_no_drop_button_reset">Reset</string>
     <string name="time_no_drop_button_start">Start</string>
+    <string name="about_title">About</string>
+    <string name="about_content">Put the phone on the floor, the app will detect ball drops by listening to your microphone.</string>
 </resources>
