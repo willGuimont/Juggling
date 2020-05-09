@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel;
 public class TimeNoDropModel extends ViewModel {
 
     private static final long TICK_DELAY_MS = 10;
+
     private final MutableLiveData<Long> currentTime = new MutableLiveData<>();
     private long startTime;
     private Handler handler = new Handler();

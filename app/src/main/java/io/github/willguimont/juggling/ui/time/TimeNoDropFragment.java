@@ -20,6 +20,7 @@ public class TimeNoDropFragment extends Fragment {
 
     private TimeNoDropModel timeNoDropModel;
     private LoudSoundDetector loudSoundDetector;
+    private Button resetButton;
 
     public static TimeNoDropFragment newInstance() {
         return new TimeNoDropFragment();
@@ -44,13 +45,19 @@ public class TimeNoDropFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        loudSoundDetector.stop();
+        stop();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        stop();
+    }
+
+    private void stop() {
+        timeNoDropModel.reset();
         loudSoundDetector.stop();
+        resetButton.setText(R.string.time_no_drop_button_start);
     }
 
     @Override
@@ -58,7 +65,7 @@ public class TimeNoDropFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.time_no_drop, container, false);
-        Button resetButton = root.findViewById(R.id.no_drop_button);
+        resetButton = root.findViewById(R.id.no_drop_button);
         resetButton.setOnClickListener(v -> {
             if (timeNoDropModel.getIsRunning()) {
                 timeNoDropModel.reset();
