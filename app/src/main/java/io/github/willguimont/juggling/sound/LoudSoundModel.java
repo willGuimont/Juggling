@@ -52,10 +52,6 @@ public class LoudSoundModel extends ViewModel {
         timeAtLastLoudMs = 0;
     }
 
-    public void release() {
-        soundMeter.stop();
-    }
-
     public void setPollIntervalMs(long intervalMs) {
         pollIntervalMs = intervalMs;
     }
@@ -67,5 +63,15 @@ public class LoudSoundModel extends ViewModel {
 
     public void setOnLoudSoundDelayMs(long onLoudSoundDelayMs) {
         this.onLoudSoundDelayMs = onLoudSoundDelayMs;
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        release();
+    }
+
+    private void release() {
+        soundMeter.stop();
     }
 }

@@ -67,10 +67,4 @@ public class MainActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
         loudSoundModel = new LoudSoundModel();
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        loudSoundModel.release();
-    }
 }
