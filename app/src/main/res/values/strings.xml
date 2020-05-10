@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Juggling</string>
+    <string name="ask_permission">Ask Permissions</string>
     <string name="tab_text_training">Training</string>
     <string name="tab_text_time_no_drop">Time no drop</string>
     <string name="tab_text_about">About</string>
@@ -10,5 +11,6 @@
     <string name="time_no_drop_button_reset">Reset</string>
     <string name="time_no_drop_button_start">Start</string>
     <string name="about_title">About</string>
-    <string name="about_content">Put the phone on the floor, the app will detect ball drops by listening to your microphone.</string>
+    <string name="about_content">Put the phone on the floor, the app will detect ball drops by listening to your microphone.\n\nTraining mode will count how many times you drop the ball.\n\nTime No Drop mode will check for how long you can juggle before dropping a ball.</string>
+    <string name="ask_permissions">This app needs access to your microphone to detect ball drops.\n\nPress the button below.\n\nOnce the permission granted, put the phone on the floor and start juggling !</string>
 </resources>

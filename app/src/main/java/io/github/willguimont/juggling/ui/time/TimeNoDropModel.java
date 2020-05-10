@@ -14,10 +14,10 @@ public class TimeNoDropModel extends ViewModel {
 
     private final MutableLiveData<Long> currentTime = new MutableLiveData<>();
     private long startTime;
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
     private boolean isRunning;
 
-    private Runnable tick = new Runnable() {
+    private final Runnable tick = new Runnable() {
         @Override
         public void run() {
             currentTime.setValue(System.currentTimeMillis());
@@ -33,7 +33,6 @@ public class TimeNoDropModel extends ViewModel {
         handler.removeCallbacks(tick);
         currentTime.setValue(startTime);
         isRunning = false;
-        Log.i("TimeNoDropModel", "reset");
     }
 
     void stop() {

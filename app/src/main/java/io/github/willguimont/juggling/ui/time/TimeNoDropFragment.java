@@ -14,12 +14,12 @@ import androidx.lifecycle.ViewModelProvider;
 import java.util.Locale;
 
 import io.github.willguimont.juggling.R;
-import io.github.willguimont.juggling.sound.LoudSoundDetector;
+import io.github.willguimont.juggling.sound.LoudSoundModel;
 
 public class TimeNoDropFragment extends Fragment {
 
     private TimeNoDropModel timeNoDropModel;
-    private LoudSoundDetector loudSoundDetector;
+    private LoudSoundModel loudSoundModel;
     private Button resetButton;
 
     public static TimeNoDropFragment newInstance() {
@@ -29,17 +29,21 @@ public class TimeNoDropFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        timeNoDropModel = new ViewModelProvider(this).get(TimeNoDropModel.class);
-        loudSoundDetector = new LoudSoundDetector(
-                100,
-                () -> timeNoDropModel.stop(),
-                100);
+        ViewModelProvider viewModelProvider = new ViewModelProvider(getActivity());
+        timeNoDropModel = viewModelProvider.get(TimeNoDropModel.class);
+        loudSoundModel = viewModelProvider.get(LoudSoundModel.class);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        loudSoundDetector.start();
+        loudSoundModel.setOnLoudSoundAction(() -> {
+            timeNoDropModel.stop();
+            resetButton.setText(R.string.time_no_drop_button_start);
+        });
+        loudSoundModel.setPollIntervalMs(10);
+        loudSoundModel.setOnLoudSoundDelayMs(100);
+        loudSoundModel.start();
     }
 
     @Override
@@ -56,8 +60,8 @@ public class TimeNoDropFragment extends Fragment {
 
     private void stop() {
         timeNoDropModel.reset();
-        loudSoundDetector.stop();
         resetButton.setText(R.string.time_no_drop_button_start);
+        loudSoundModel.stop();
     }
 
     @Override

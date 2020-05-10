@@ -12,7 +12,7 @@ public class SoundMeter {
     private MediaRecorder recorder = null;
     private double mEMA = 0.0;
 
-    public void start() {
+    void start() {
         if (recorder == null) {
             recorder = new MediaRecorder();
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -33,7 +33,7 @@ public class SoundMeter {
         }
     }
 
-    public void stop() {
+    void stop() {
         if (recorder != null) {
             recorder.stop();
             recorder.release();
@@ -41,7 +41,7 @@ public class SoundMeter {
         }
     }
 
-    public double getAmplitude() {
+    double getAmplitude() {
         if (recorder != null)
             return (recorder.getMaxAmplitude() / 2700.0);
         else
@@ -49,7 +49,7 @@ public class SoundMeter {
 
     }
 
-    public double getAmplitudeEMA() {
+    double getAmplitudeEMA() {
         double amp = getAmplitude();
         mEMA = EMA_FILTER * amp + (1.0 - EMA_FILTER) * mEMA;
         return mEMA;

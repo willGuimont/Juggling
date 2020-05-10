@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 public class TrainingModel extends ViewModel {
 
-    private MutableLiveData<Integer> numberOfDrops = new MutableLiveData<>();
+    private final MutableLiveData<Integer> numberOfDrops = new MutableLiveData<>();
 
     void reset() {
         numberOfDrops.setValue(0);

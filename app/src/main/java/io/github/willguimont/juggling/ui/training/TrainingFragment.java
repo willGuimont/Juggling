@@ -1,7 +1,5 @@
 package io.github.willguimont.juggling.ui.training;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,23 +8,18 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.util.Locale;
 
 import io.github.willguimont.juggling.R;
-import io.github.willguimont.juggling.sound.LoudSoundDetector;
+import io.github.willguimont.juggling.sound.LoudSoundModel;
 
 public class TrainingFragment extends Fragment {
 
-    private static final int RECORD_AUDIO_PERMISSION = 0;
-
     private TrainingModel trainingModel;
-    private LoudSoundDetector loudSoundDetector;
+    private LoudSoundModel loudSoundModel;
 
     public static TrainingFragment newInstance() {
         return new TrainingFragment();
@@ -35,24 +28,10 @@ public class TrainingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        trainingModel = new ViewModelProvider(this).get(TrainingModel.class);
+        ViewModelProvider viewModelProvider = new ViewModelProvider(getActivity());
+        trainingModel = viewModelProvider.get(TrainingModel.class);
         trainingModel.reset();
-        createLoudSoundDetector();
-    }
-
-    private void createLoudSoundDetector() {
-        FragmentActivity activity = getActivity();
-        assert activity != null;
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION);
-            return;
-        }
-        if (loudSoundDetector == null) {
-            loudSoundDetector = new LoudSoundDetector(
-                    100,
-                    () -> trainingModel.drop(),
-                    1000);
-        }
+        loudSoundModel = viewModelProvider.get(LoudSoundModel.class);
     }
 
     @Override
@@ -63,20 +42,22 @@ public class TrainingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        createLoudSoundDetector();
-        loudSoundDetector.start();
+        loudSoundModel.setOnLoudSoundDelayMs(1000);
+        loudSoundModel.setOnLoudSoundAction(() -> trainingModel.drop());
+        loudSoundModel.setPollIntervalMs(100);
+        loudSoundModel.start();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        loudSoundDetector.stop();
+        loudSoundModel.stop();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        loudSoundDetector.stop();
+        loudSoundModel.stop();
     }
 
     @Override
@@ -94,7 +75,7 @@ public class TrainingFragment extends Fragment {
         final Button resetButton = root.findViewById(R.id.train_reset_button);
         resetButton.setOnClickListener((view) -> {
             trainingModel.reset();
-            loudSoundDetector.reset();
+            loudSoundModel.reset();
         });
 
         return root;
