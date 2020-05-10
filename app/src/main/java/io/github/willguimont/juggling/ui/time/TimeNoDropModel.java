@@ -1,7 +1,6 @@
 package io.github.willguimont.juggling.ui.time;
 
 import android.os.Handler;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -38,7 +37,6 @@ public class TimeNoDropModel extends ViewModel {
     void stop() {
         handler.removeCallbacks(tick);
         isRunning = false;
-        Log.i("TimeNoDropModel", "stop");
     }
 
     void start() {

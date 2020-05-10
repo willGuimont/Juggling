@@ -1,7 +1,6 @@
 package io.github.willguimont.juggling.sound;
 
 import android.os.Handler;
-import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
 
@@ -18,7 +17,6 @@ public class LoudSoundModel extends ViewModel {
     private final Runnable pollTask = new Runnable() {
         @Override
         public void run() {
-            Log.i("LoudSoundModel", "polling");
             double amp = soundMeter.getAmplitude();
 
             long currentTime = System.currentTimeMillis();
