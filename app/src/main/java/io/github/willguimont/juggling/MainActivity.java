@@ -14,7 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 import io.github.willguimont.juggling.sound.LoudSoundModel;
-import io.github.willguimont.juggling.ui.main.SectionsPagerAdapter;
+import io.github.willguimont.juggling.ui.main.MainStatePagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,9 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void init_main_view() {
         setContentView(R.layout.activity_main);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        MainStatePagerAdapter mainStatePagerAdapter = new MainStatePagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
+        viewPager.setAdapter(mainStatePagerAdapter);
         viewPager.setOffscreenPageLimit(0);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);

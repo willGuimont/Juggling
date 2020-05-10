@@ -12,10 +12,7 @@ public class TimeNoDropModel extends ViewModel {
     private static final long TICK_DELAY_MS = 10;
 
     private final MutableLiveData<Long> currentTime = new MutableLiveData<>();
-    private long startTime;
     private final Handler handler = new Handler();
-    private boolean isRunning;
-
     private final Runnable tick = new Runnable() {
         @Override
         public void run() {
@@ -26,6 +23,8 @@ public class TimeNoDropModel extends ViewModel {
             handler.postDelayed(tick, TICK_DELAY_MS);
         }
     };
+    private long startTime;
+    private boolean isRunning;
 
     void reset() {
         startTime = System.currentTimeMillis();
