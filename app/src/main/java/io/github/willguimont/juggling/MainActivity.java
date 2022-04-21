@@ -14,6 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 import java.io.File;
+import java.io.IOException;
 
 import io.github.willguimont.juggling.sound.LoudSoundModel;
 import io.github.willguimont.juggling.ui.main.MainStatePagerAdapter;
@@ -65,7 +66,12 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-        File tmpFolder = getApplicationContext().getFilesDir();
-        LoudSoundModel.setGlobalTmpOutputFile(new File(tmpFolder, "tmpMedia.mp3"));
+        try {
+            File tmpFile = File.createTempFile("tmp.mp3", null, getApplicationContext().getCacheDir());
+            LoudSoundModel.setGlobalTmpOutputFile(tmpFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Could not create temp file");
+        }
     }
 }
