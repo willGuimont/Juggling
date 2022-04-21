@@ -1,7 +1,9 @@
 package io.github.willguimont.juggling.sound;
 
 import android.media.MediaRecorder;
+import android.os.Build;
 
+import java.io.File;
 import java.io.IOException;
 
 // https://github.com/Santosh-Gupta/SitcomSimulator/blob/335664a71187ea8f2e29ac882afc8d3c2732bd16/noisealert/src/com/androidexample/noisealert/SoundMeter.java#L7
@@ -11,6 +13,11 @@ public class SoundMeter {
 
     private MediaRecorder recorder = null;
     private double mEMA = 0.0;
+    private File tmpFile;
+
+    public SoundMeter(File tmpFile) {
+        this.tmpFile = tmpFile;
+    }
 
     void start() {
         if (recorder == null) {
@@ -18,7 +25,7 @@ public class SoundMeter {
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
             recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-            recorder.setOutputFile("/dev/null");
+            recorder.setOutputFile(getFakeOutputPath());
 
             try {
                 recorder.prepare();
@@ -31,6 +38,13 @@ public class SoundMeter {
             recorder.start();
             mEMA = 0.0;
         }
+    }
+
+    String getFakeOutputPath() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            return tmpFile.getAbsolutePath();
+        }
+        return "/dev/null";
     }
 
     void stop() {

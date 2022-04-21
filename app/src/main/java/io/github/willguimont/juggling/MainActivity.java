@@ -13,14 +13,13 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.io.File;
+
 import io.github.willguimont.juggling.sound.LoudSoundModel;
 import io.github.willguimont.juggling.ui.main.MainStatePagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
-
     private static final int RECORD_AUDIO_PERMISSION = 0;
-
-    private LoudSoundModel loudSoundModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setOffscreenPageLimit(0);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        loudSoundModel = new LoudSoundModel();
+
+        File tmpFolder = getApplicationContext().getFilesDir();
+        LoudSoundModel.setGlobalTmpOutputFile(new File(tmpFolder, "tmpMedia.mp3"));
     }
 }

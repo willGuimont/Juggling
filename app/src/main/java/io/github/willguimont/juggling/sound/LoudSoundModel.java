@@ -4,6 +4,8 @@ import android.os.Handler;
 
 import androidx.lifecycle.ViewModel;
 
+import java.io.File;
+
 public class LoudSoundModel extends ViewModel {
     private static final double THRESHOLD = 6;
 
@@ -13,6 +15,7 @@ public class LoudSoundModel extends ViewModel {
     private long pollIntervalMs;
     private long onLoudSoundDelayMs;
     private long timeAtLastLoudMs;
+    private static File tmpFile;
 
     private final Runnable pollTask = new Runnable() {
         @Override
@@ -29,8 +32,12 @@ public class LoudSoundModel extends ViewModel {
         }
     };
 
+    public static void setGlobalTmpOutputFile(File tmpFile) {
+        LoudSoundModel.tmpFile = tmpFile;
+    }
+
     public LoudSoundModel() {
-        soundMeter = new SoundMeter();
+        soundMeter = new SoundMeter(tmpFile);
         pollIntervalMs = 100;
         onLoudSoundAction = () -> {
         };
